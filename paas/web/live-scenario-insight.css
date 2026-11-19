@@ -1,0 +1,637 @@
+.scenario-insight {
+  --scenario-ink: var(--ui-ink);
+  --scenario-muted: var(--ui-muted);
+  --scenario-line: var(--ui-border);
+  --scenario-accent: var(--ui-accent);
+  --scenario-pale: var(--ui-accent-soft);
+  min-width: 0;
+  color: var(--scenario-ink);
+}
+
+.scenario-insight :is(h2, h3, h4, p, ol, dl) {
+  margin: 0;
+}
+
+.scenario-insight :is(p, dd, li, summary) {
+  overflow-wrap: anywhere;
+}
+
+.scenario-group-tile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+  max-width: 620px;
+  padding: 26px clamp(17px, 2.3vw, 28px);
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-panel-radius);
+  background: var(--ui-surface);
+}
+
+.scenario-group-tile h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.scenario-group-tile p,
+.scenario-group-head p,
+.scenario-method-dialog header p {
+  color: var(--scenario-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.scenario-tile-actions {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  flex: 0 0 auto;
+  color: var(--scenario-muted);
+  font-size: 12px;
+}
+
+.scenario-group-view {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: clamp(14px, 2.2vw, 24px);
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-panel-radius);
+  background: var(--ui-surface);
+}
+
+.scenario-group-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 13px;
+}
+
+.scenario-group-head h2 {
+  margin: 6px 0 3px;
+  font-size: 18px;
+}
+
+.scenario-insight .scenario-group-back {
+  justify-content: flex-start;
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  color: var(--scenario-muted);
+}
+
+.scenario-insight .scenario-group-back:hover {
+  color: var(--scenario-accent);
+}
+
+.scenario-group-actions,
+.scenario-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.scenario-upload-control {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.scenario-template-link:hover {
+  text-decoration: none;
+}
+
+.scenario-upload-control:focus-within {
+  outline: 2px solid var(--ui-accent);
+  outline-offset: 3px;
+}
+
+.scenario-upload-control:has(input:disabled) {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.scenario-staged-method,
+.scenario-list-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-control-radius);
+}
+
+.scenario-staged-method {
+  padding: 10px 14px;
+  background: var(--ui-subtle);
+  font-size: 13px;
+}
+
+.scenario-staged-method div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px 10px;
+  min-width: 0;
+}
+
+.scenario-staged-method strong {
+  overflow-wrap: anywhere;
+}
+
+.scenario-staged-method :is(span, small),
+.scenario-list-row :is(p, small) {
+  color: var(--scenario-muted);
+  font-size: 12px;
+}
+
+.scenario-list-row {
+  padding: 14px;
+}
+
+.scenario-list-row h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.scenario-list-row small {
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.scenario-trigger {
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: var(--scenario-accent);
+  background: var(--scenario-pale);
+  font: 11px ui-monospace, monospace;
+}
+
+.scenario-error,
+.scenario-pending {
+  color: var(--scenario-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.scenario-error {
+  color: var(--ui-danger);
+}
+
+.scenario-method-dialog {
+  width: min(680px, calc(100% - 26px));
+  max-height: min(78vh, 760px);
+  padding: 0;
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-panel-radius);
+  background: var(--ui-surface);
+  color: var(--scenario-ink);
+  box-shadow: 0 22px 75px #102c3a30;
+}
+
+.scenario-method-dialog::backdrop {
+  background: rgb(15 23 42 / 38%);
+}
+
+.scenario-method-dialog header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--scenario-line);
+  background: var(--ui-subtle);
+}
+
+.scenario-method-dialog header h3 {
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+.scenario-method-dialog-body {
+  padding: clamp(12px, 2.2vw, 20px);
+}
+
+.scenario-method-steps blockquote {
+  margin: 5px 0 0;
+  padding-left: 9px;
+  border-left: 2px solid var(--ui-border-strong);
+}
+
+.scenario-method-limits {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--scenario-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.scenario-unsupported {
+  margin-left: 7px;
+  color: #874723;
+  font-size: 11px;
+}
+
+.scenario-report-items ul {
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+
+.scenario-reviewed {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+.scenario-reviewed .scenario-method-title {
+  margin-bottom: 2px;
+  color: var(--scenario-ink);
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.scenario-reviewed h4,
+.scenario-evidence-flow h4 {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.scenario-method-steps,
+.scenario-method-outline {
+  padding-left: 21px;
+  color: var(--scenario-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.scenario-method-steps > li + li,
+.scenario-method-outline > li + li {
+  margin-top: 6px;
+}
+
+.scenario-method-steps > li::marker,
+.scenario-evidence-flow > li::marker {
+  color: var(--scenario-accent);
+  font-weight: 650;
+}
+
+.scenario-raw-method,
+.scenario-metric {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-control-radius);
+  background: var(--ui-subtle);
+}
+
+.scenario-raw-method summary,
+.scenario-metric summary,
+.scenario-evidence > summary {
+  padding: 9px 10px;
+  color: var(--scenario-ink);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.scenario-metric summary span {
+  margin-right: 9px;
+  color: var(--scenario-accent);
+}
+
+.scenario-method-source {
+  max-height: 350px;
+  overflow: auto;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--scenario-line);
+  color: var(--scenario-ink);
+  font-size: 12px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.scenario-boundary {
+  padding: 8px 10px;
+  border-left: 2px solid var(--ui-border-strong);
+  background: var(--scenario-pale);
+  font-size: 12px;
+}
+
+.scenario-chat-view {
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-panel-radius);
+  background: var(--ui-surface);
+  overflow: hidden;
+}
+
+.scenario-chat-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px clamp(16px, 2.3vw, 28px);
+  border-bottom: 1px solid var(--scenario-line);
+  background: var(--ui-surface);
+}
+
+.scenario-chat-head h2 {
+  margin-top: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.scenario-chat-head p {
+  margin-top: 4px;
+  color: var(--scenario-muted);
+  font-size: 12px;
+}
+
+.scenario-ready-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.scenario-chat-workspace {
+  display: grid;
+  grid-template-columns: minmax(180px, 24%) minmax(0, 1fr);
+}
+
+.scenario-sessions {
+  min-width: 0;
+  border-inline-end: 1px solid var(--scenario-line);
+  background: var(--ui-subtle);
+}
+
+.scenario-sessions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--scenario-line);
+}
+
+.scenario-sessions-head h3 {
+  font-size: 14px;
+}
+
+.scenario-sessions-head #scenario-new-chat {
+  display: grid;
+  place-items: center;
+  width: var(--ui-control-height);
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.scenario-session-list {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  max-height: min(630px, 60vh);
+  margin: 0;
+  padding: 7px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+}
+
+.scenario-session-list li {
+  min-width: 0;
+}
+
+.scenario-insight .scenario-session {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px 9px;
+  border: 1px solid transparent;
+  border-radius: var(--ui-control-radius);
+  background: transparent;
+  color: var(--scenario-ink);
+  text-align: start;
+}
+
+.scenario-session strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.scenario-session small {
+  color: var(--scenario-muted);
+  font-size: 11px;
+}
+
+.scenario-insight .scenario-session:hover:not(:disabled),
+.scenario-insight .scenario-session[aria-current='true'] {
+  background: var(--scenario-pale);
+}
+
+.scenario-insight .scenario-session[aria-current='true'] {
+  border-color: var(--scenario-line);
+  color: var(--scenario-accent);
+}
+
+.scenario-chat-body {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+  padding: clamp(14px, 2.3vw, 25px);
+}
+
+.scenario-chat-context {
+  color: var(--scenario-muted);
+  font-size: 12px;
+}
+
+.scenario-turns {
+  min-width: 0;
+  max-height: min(630px, 60vh);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.scenario-empty-chat {
+  padding: 24px 12px;
+  border: 1px dashed var(--scenario-line);
+  border-radius: var(--ui-control-radius);
+  background: var(--ui-subtle);
+  color: var(--scenario-muted);
+  font-size: 13px;
+}
+
+.scenario-turn {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+
+.scenario-turn + .scenario-turn {
+  padding-top: 12px;
+  border-top: 1px solid var(--scenario-line);
+}
+
+.scenario-user {
+  padding: 10px 13px;
+  margin-left: min(12%, 72px);
+  border-radius: var(--ui-control-radius);
+  background: var(--scenario-pale);
+}
+
+.scenario-user strong {
+  color: var(--scenario-accent);
+  font-size: 11px;
+}
+
+.scenario-user p {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.scenario-answer {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.scenario-answer h3 {
+  color: var(--scenario-ink);
+  font-size: 14px;
+}
+
+.scenario-evidence {
+  min-width: 0;
+  margin-top: 6px;
+  padding: 0 10px 10px;
+  border: 1px solid var(--scenario-line);
+  border-radius: var(--ui-control-radius);
+  background: var(--ui-surface);
+}
+
+.scenario-evidence > summary {
+  padding-left: 0;
+}
+
+.scenario-evidence-flow {
+  display: grid;
+  gap: 11px;
+  padding: 0 0 10px 22px;
+}
+
+.scenario-evidence-flow > li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--scenario-line);
+}
+
+.scenario-evidence-flow h4 {
+  margin-bottom: 4px;
+}
+
+.scenario-evidence-flow ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.scenario-insight .scenario-formula {
+  margin-top: 5px;
+  color: var(--scenario-accent);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.scenario-table-scroll {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.scenario-insight table {
+  width: 100%;
+  min-width: max-content;
+  border-collapse: collapse;
+  margin: 4px 0 6px;
+  color: var(--scenario-ink);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scenario-insight :is(th, td) {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--scenario-line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.scenario-insight thead th {
+  background: var(--scenario-pale);
+}
+
+#scenario-chat-form {
+  display: grid;
+  gap: 7px;
+}
+
+.scenario-insight .scenario-status {
+  color: var(--scenario-accent);
+  font-size: 12px;
+}
+
+.scenario-insight .scenario-status:empty {
+  display: none;
+}
+
+
+.scenario-group-view .scenario-upload-control:hover {
+  border-color: var(--ui-border-strong);
+  background: var(--ui-subtle);
+}
+
+@media (max-width: 740px) {
+  .scenario-chat-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scenario-sessions {
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--scenario-line);
+  }
+
+  .scenario-session-list {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(130px, min(55%, 230px));
+  }
+}
+
+@media (max-width: 520px) {
+  .scenario-group-tile {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .scenario-tile-actions {
+    justify-items: start;
+  }
+
+  .scenario-turns {
+    max-height: 52vh;
+  }
+}

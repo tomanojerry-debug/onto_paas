@@ -1,0 +1,131 @@
+{
+  "profile": "onto-dataanalyse-04a683e-metrics-v1",
+  "source_repository": "https://github.com/sharptoolbox/Onto-DataAnalyse",
+  "source_commit": "04a683ec3649d07602f8ca4a3fce581d17a100da",
+  "source_sha256": "2d5d202b398bf57e015a555d9997a22780b95a155d757e1b0c8fca2a703daf82",
+  "original_hashes": {
+    "data_mapping.yaml": "fa248251adb79c9aa6be3be0f334d3254fd146ba3305495e2f0fd6c8011f7e4c",
+    "m1_object_model.yaml": "ea68ab5b89cd0a1afeb6818a9a254319b3d73b43f69eab42037ba13ff1b4e276",
+    "m2_behavior_model.yaml": "cb0d1e73267e699771ac5fa0be7bbe99ec4964dc5f6fa7679660932812e4cf3c",
+    "m3_rule_model.yaml": "fb503f077ef009470a6f90837f032531d7595e94ee66639d3ce5251ad8ee78a6",
+    "m4_scenario_model.yaml": "beb03465bb394e53330e5c92fcbe905ec2dad4282119372326a05de1210bded0",
+    "m_metric_model.yaml": "c0a1e4c81a1cc7c4ae9e994b06d114286ba88a297f7b88331f0551bc4b136d13"
+  },
+  "original_legacy_sha256": "fe1ecea2fa8bd5215f1f5841ff8b0ad548a79afb9e781eefa21f57a4e65988b7",
+  "repaired_legacy_sha256": "0afc0ed0736658986458662408042166717439a793bba1368e5ac76983a75187",
+  "repaired_bundle_sha256": "3c4d841c76ee1dba2f40db2aa99c0eec56e5de45f9b7f0a3a28098d53f688d39",
+  "time_window": "统计周期按订单创建时间左闭右开；营销活动自己的起止时间按作者库存储值比较，含活动终点。",
+  "repairs": [
+    {
+      "metric_id": "MTR-MKT-001",
+      "name": "营销GMV贡献",
+      "operation": "append",
+      "reason": "M4 引用尚无定义。作者最终需求营销指标名单首项对应 MTR-MKT-001，作者 RULE-MTR-015 已定义活动 GMV 分子。按优惠券使用记录的真实订单主键关联并按活动去重。",
+      "interpretation": "限定活动期间的有效关联订单，仅代表源库中可追溯的活动贡献。若一笔订单关联多个活动，分别保留各活动的贡献；各活动结果不作全平台 GMV 加总。",
+      "sources": [
+        {
+          "path": "docs/最终需求：电商数据智能分析系统-完整需求文档.md",
+          "section": "§3.2 M_Metric 完整实例内容 / 营销效果类",
+          "sha256": "0e2c344b3ba2be26121d5df6250a1c9fc8ae78048c2f54138f176079cca7e7e7"
+        },
+        {
+          "path": "backend/models/default/m4_scenario_model.yaml",
+          "section": "SCN-GMV-001.keyMetrics",
+          "sha256": "beb03465bb394e53330e5c92fcbe905ec2dad4282119372326a05de1210bded0"
+        },
+        {
+          "path": "backend/models/default/m3_rule_model.yaml",
+          "section": "RULE-MTR-015 的活动 GMV 分子；RULE-MTR-001 的有效订单",
+          "sha256": "fb503f077ef009470a6f90837f032531d7595e94ee66639d3ce5251ad8ee78a6"
+        },
+        {
+          "path": "demo_files/ecommerce_db_schema.md",
+          "section": "t_order / t_campaign / t_coupon_usage",
+          "sha256": "9d5da279f35d45acedc227eb32a9eb6861980ad3096be357635dab61af66d966"
+        }
+      ],
+      "fields": {
+        "id": "MTR-MKT-001",
+        "name": "营销GMV贡献",
+        "alias": "campaign_gmv",
+        "description": "统计周期内，活动期间通过优惠券使用记录明确关联至营销活动的有效订单实付金额。同一活动内按订单去重。",
+        "formula_description": "对每个营销活动，汇总订单创建时间落在活动期间和统计周期交集内的有效订单实付金额；关联由 t_coupon_usage.campaign_id 与 order_id 确定，状态 5 和 6 的订单排除。",
+        "computation_type": "SQL_COMPUTE",
+        "depends_on_entities": [
+          "ENT-MKT-001",
+          "ENT-MKT-002",
+          "ENT-ORD-001"
+        ],
+        "rule_refs": [
+          "RULE-MTR-001",
+          "RULE-MTR-015"
+        ],
+        "sql_template": "WITH campaign_orders AS (\n  SELECT DISTINCT campaign_id, order_id\n  FROM t_coupon_usage\n  WHERE order_id IS NOT NULL\n)\nSELECT c.campaign_id, c.campaign_name,\n  COUNT(o.order_id) AS effective_order_count,\n  ROUND(COALESCE(SUM(o.payment_amount), 0), 2) AS campaign_gmv\nFROM t_campaign AS c\nLEFT JOIN campaign_orders AS co ON co.campaign_id = c.campaign_id\nLEFT JOIN t_order AS o ON o.order_id = co.order_id\n  AND o.status NOT IN (5, 6)\n  AND o.gmt_create BETWEEN c.start_time AND c.end_time\n  AND o.gmt_create >= '{date_start}' AND o.gmt_create < '{date_end}'\nWHERE c.start_time < '{date_end}' AND c.end_time >= '{date_start}'\nGROUP BY c.campaign_id, c.campaign_name\nORDER BY c.campaign_id",
+        "stat_algorithm": null,
+        "supported_dimensions": [
+          "campaign"
+        ],
+        "default_visualization": "bar",
+        "unit": "元",
+        "tags": [
+          "marketing"
+        ]
+      }
+    },
+    {
+      "metric_id": "MTR-PRD-005",
+      "name": "商品平均评分",
+      "operation": "complete",
+      "reason": "原 YAML 在 SQL_COMP 处中断。保留原文件此 ID 的名称、描述与公式，补齐 SQL_COMPUTE 和依赖。作者 RULE-MTR-018 的分子明确给出有效订单中的动销商品 SPU 集合。",
+      "interpretation": "以每个有有效订单销售记录的商品 SPU 为一条评分样本；AVG 忽略空评分。作者最终需求的参考指标名单第五项与实际 YAML 有差异，按当前原模型显式口径修复该 ID。",
+      "sources": [
+        {
+          "path": "backend/models/default/m_metric_model.yaml",
+          "section": "MTR-PRD-005 已声明的名称、描述和公式",
+          "sha256": "c0a1e4c81a1cc7c4ae9e994b06d114286ba88a297f7b88331f0551bc4b136d13"
+        },
+        {
+          "path": "backend/models/default/m3_rule_model.yaml",
+          "section": "RULE-MTR-018 的有效订单动销 SPU 分子",
+          "sha256": "fb503f077ef009470a6f90837f032531d7595e94ee66639d3ce5251ad8ee78a6"
+        },
+        {
+          "path": "demo_files/ecommerce_db_schema.md",
+          "section": "t_product.avg_rating / t_order_item / t_order",
+          "sha256": "9d5da279f35d45acedc227eb32a9eb6861980ad3096be357635dab61af66d966"
+        },
+        {
+          "path": "docs/最终需求：电商数据智能分析系统-完整需求文档.md",
+          "section": "§3.2 商品运营类参考指标名单",
+          "sha256": "0e2c344b3ba2be26121d5df6250a1c9fc8ae78048c2f54138f176079cca7e7e7"
+        }
+      ],
+      "expected": {
+        "id": "MTR-PRD-005",
+        "name": "商品平均评分",
+        "alias": "avg_product_rating",
+        "description": "统计周期内，有销售商品的平均评分",
+        "formula_description": "AVG(t_product.avg_rating) WHERE product has sales in period",
+        "computation_type": "SQL_COMP"
+      },
+      "fields": {
+        "computation_type": "SQL_COMPUTE",
+        "depends_on_entities": [
+          "ENT-PRD-001",
+          "ENT-ORD-002",
+          "ENT-ORD-001"
+        ],
+        "rule_refs": [
+          "RULE-MTR-018"
+        ],
+        "sql_template": "SELECT AVG(p.avg_rating) AS avg_product_rating,\n  COUNT(*) AS sold_product_count,\n  COUNT(p.avg_rating) AS rated_product_count\nFROM t_product AS p\nWHERE EXISTS (\n  SELECT 1\n  FROM t_order_item AS i\n  JOIN t_order AS o ON o.order_id = i.order_id\n  WHERE i.product_id = p.product_id\n    AND o.status NOT IN (5, 6)\n    AND o.gmt_create >= '{date_start}' AND o.gmt_create < '{date_end}'\n)",
+        "stat_algorithm": null,
+        "unit": "分",
+        "tags": [
+          "product",
+          "quality"
+        ]
+      }
+    }
+  ]
+}

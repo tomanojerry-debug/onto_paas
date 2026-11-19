@@ -1,0 +1,120 @@
+:root {
+  color-scheme: light;
+  --ui-font: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --ui-bg: #f6f7f9;
+  --ui-surface: #fff;
+  --ui-subtle: #f4f6f8;
+  --ui-ink: #172332;
+  --ui-muted: #52606e;
+  --ui-border: #e0e5eb;
+  --ui-border-strong: #cdd5df;
+  --ui-accent: #2a58c5;
+  --ui-accent-hover: #224aa8;
+  --ui-accent-soft: #ecf3fb;
+  --ui-danger: #b42433;
+  --ui-nav: var(--ui-surface);
+  --ui-nav-ink: var(--ui-ink);
+  --ui-nav-muted: var(--ui-muted);
+  --ui-nav-hover: #f1f4f7;
+  --ui-nav-active: var(--ui-ink);
+  --ui-nav-active-ink: var(--ui-surface);
+  --ui-nav-active-muted: #d2dbe5;
+  --ui-nav-border: var(--ui-border);
+  --ui-nav-focus: var(--ui-accent);
+  --ui-control-radius: 8px;
+  --ui-panel-radius: 12px;
+  --ui-control-height: 36px;
+  --ui-topbar-height: 56px;
+  --ui-title-size: 24px;
+  --ui-gutter: 24px;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --ui-gutter: 16px;
+    --ui-title-size: 20px;
+  }
+}
+
+:where(.ui-topbar, .ui-navigation) {
+  color: var(--ui-nav-ink);
+  background: var(--ui-nav);
+  --ui-control-bg: var(--ui-surface);
+  --ui-control-hover: var(--ui-nav-hover);
+  --ui-control-ink: var(--ui-nav-ink);
+  --ui-control-border: var(--ui-border-strong);
+  --ui-control-focus: var(--ui-nav-focus);
+}
+
+:where(.ui-topbar) {
+  min-height: var(--ui-topbar-height);
+  padding-inline: var(--ui-gutter);
+  border-bottom: 1px solid var(--ui-nav-border);
+}
+
+:where(.ui-brand) {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+:where(.ui-brand-mark) {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  background: var(--ui-accent);
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+:where(.ui-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--ui-control-height);
+  padding: 6px 12px;
+  border: 1px solid var(--ui-control-border, var(--ui-border-strong));
+  border-radius: var(--ui-control-radius);
+  color: var(--ui-control-ink, var(--ui-ink));
+  background: var(--ui-control-bg, var(--ui-surface));
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+:where(.ui-button:hover:not(:disabled)) {
+  background: var(--ui-control-hover, var(--ui-subtle));
+}
+
+:where(.ui-button.primary) {
+  border-color: var(--ui-accent);
+  color: #fff;
+  background: var(--ui-accent);
+}
+
+:where(.ui-button.primary:hover:not(:disabled)) {
+  border-color: var(--ui-accent-hover);
+  background: var(--ui-accent-hover);
+}
+
+:where(.ui-button:disabled) {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+:where(.ui-button, .ui-topbar *, .ui-navigation *):focus-visible {
+  outline: 2px solid var(--ui-control-focus, var(--ui-accent));
+  outline-offset: 2px;
+}

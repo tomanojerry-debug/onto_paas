@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>销售合同工作台 · 交互演示</title>
+  <link rel="stylesheet" href="/ui-system.css?v=workspace">
+  <link rel="stylesheet" href="./style.css?v=workspace">
+  <script src="/elastic-textarea.js" defer></script>
+  <script src="./app.js?v=workspace" defer></script>
+</head>
+<body>
+  <header class="demo-topbar ui-topbar">
+    <div class="demo-brand ui-brand">
+      <span class="ui-brand-mark" aria-hidden="true">O</span>
+      <strong>销售合同工作台</strong>
+      <span class="sample-label">演示数据</span>
+    </div>
+    <a class="ui-button demo-back" href="/#interface">返回界面原型</a>
+  </header>
+
+  <div class="demo-layout">
+    <aside class="demo-sidebar ui-navigation">
+      <nav aria-label="选择业务页面">
+        <button type="button" data-view="contracts" aria-pressed="false">合同台账</button>
+        <button type="button" data-view="invoices" aria-pressed="true">开票登记</button>
+        <button type="button" data-view="receipts" aria-pressed="false">收款记录</button>
+      </nav>
+      <p class="demo-local-note">试填内容仅保留在当前标签页，刷新后恢复演示数据。</p>
+    </aside>
+
+    <main class="demo-workspace" id="workspace">
+      <p class="workspace-status" id="workspace-status" role="status" aria-live="polite"></p>
+
+      <section data-workspace="contracts" aria-labelledby="contracts-title" hidden>
+        <div class="workspace-heading">
+          <h1 id="contracts-title">合同台账</h1>
+        </div>
+        <div class="card table-scroll" tabindex="0" role="region" aria-label="合同列表">
+          <table>
+            <thead><tr><th scope="col">编号</th><th scope="col">合同名称</th><th scope="col">部门</th><th scope="col">签约金额</th><th scope="col">已开票金额</th></tr></thead>
+            <tbody id="contract-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section data-workspace="invoices" aria-labelledby="invoices-title">
+        <div class="workspace-heading">
+          <h1 id="invoices-title">开票登记</h1>
+          <button class="ui-button primary" id="open-invoice" type="button">新增开票</button>
+        </div>
+        <form class="card invoice-filters" id="invoice-filters" aria-label="筛选开票记录">
+          <div class="filter-fields">
+            <label for="filter-invoice">开票单号<input id="filter-invoice" name="invoice" type="search" placeholder="输入单号"></label>
+            <label for="filter-contract">合同<input id="filter-contract" name="contract" type="search" placeholder="输入合同名称或编号"></label>
+            <label for="filter-status">收款状态<select name="status" id="filter-status">
+              <option value="">全部</option><option value="none">尚未收款</option><option value="partial">部分收款</option><option value="paid">已收款</option>
+            </select></label>
+            <label for="filter-start">开票起始日期<input id="filter-start" name="start" type="date"></label>
+            <label for="filter-end">开票结束日期<input id="filter-end" name="end" type="date"></label>
+          </div>
+          <div class="filter-actions">
+            <button class="ui-button" type="reset">重置</button>
+            <button class="ui-button primary" type="submit">查询</button>
+          </div>
+        </form>
+
+        <section class="card invoice-records" aria-labelledby="invoice-records-title">
+          <div class="card-heading"><h2 id="invoice-records-title">开票记录</h2><span class="record-count" id="invoice-row-count" aria-live="polite"></span></div>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="开票列表">
+            <table>
+              <thead><tr><th scope="col">编号</th><th scope="col">合同</th><th scope="col">付款阶段</th><th scope="col">开票金额</th><th scope="col">税率</th><th scope="col">开票日期</th><th scope="col">状态</th></tr></thead>
+              <tbody id="invoice-rows"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section data-workspace="receipts" aria-labelledby="receipts-title" hidden>
+        <div class="workspace-heading">
+          <h1 id="receipts-title">收款记录</h1>
+        </div>
+        <div class="card table-scroll" tabindex="0" role="region" aria-label="收款列表">
+          <table>
+            <thead><tr><th scope="col">编号</th><th scope="col">发票</th><th scope="col">合同</th><th scope="col">收款金额</th><th scope="col">收款日期</th></tr></thead>
+            <tbody id="receipt-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <aside class="demo-assistant" aria-labelledby="assistant-title">
+      <header class="assistant-heading">
+        <h2 id="assistant-title">业务助手</h2>
+        <span class="assistant-scope">只读查询</span>
+      </header>
+      <dl class="assistant-metrics">
+        <div><dt>已签合同金额</dt><dd id="metric-signed">—</dd></div>
+        <div><dt>已开票金额</dt><dd id="metric-invoiced">—</dd></div>
+      </dl>
+      <div id="assistant-log" class="assistant-log" role="log" aria-label="业务助手对话" aria-live="polite">
+        <p class="assistant-intro">可查询演示合同、开票和收款记录。</p>
+      </div>
+      <div class="assistant-questions" role="group" aria-label="快捷问题">
+        <button class="ui-button" type="button" data-question="本期已签合同金额是多少？">签约金额</button>
+        <button class="ui-button" type="button" data-question="已开票金额是多少？">开票金额</button>
+        <button class="ui-button" type="button" data-question="有哪些合同可以开票？">可开票合同</button>
+      </div>
+      <form id="assistant-form" class="assistant-form" aria-label="向业务助手提问">
+        <label class="sr-only" for="assistant-question">业务问题</label>
+        <elastic-textarea><textarea id="assistant-question" name="question" rows="1" maxlength="500" placeholder="输入业务问题…" required></textarea></elastic-textarea>
+        <button class="ui-button primary" type="submit">发送</button>
+      </form>
+    </aside>
+  </div>
+
+  <dialog id="invoice-entry" class="invoice-dialog" aria-labelledby="invoice-entry-title">
+    <header class="invoice-dialog-heading">
+      <div><h2 id="invoice-entry-title">新增开票</h2><p>选择合同和付款阶段，开票金额随阶段带出。</p></div>
+      <button class="ui-button close-invoice" type="button" data-close-invoice aria-label="关闭开票窗口">×</button>
+    </header>
+    <form id="invoice-form" method="dialog">
+      <div class="invoice-form-fields">
+        <label for="invoice-contract">合同<span class="required-marker" aria-hidden="true">*</span><select id="invoice-contract" name="contract" required><option value="">请选择合同</option></select></label>
+        <label for="invoice-stage">付款阶段<span class="required-marker" aria-hidden="true">*</span><select id="invoice-stage" name="stage" required disabled><option value="">请先选择合同</option></select></label>
+        <label for="invoice-amount">开票金额（元）<input id="invoice-amount" name="amount" type="text" placeholder="按付款阶段自动带出" readonly></label>
+        <label for="invoice-tax">税率（%）<span class="required-marker" aria-hidden="true">*</span><input id="invoice-tax" name="tax" type="number" min="0" max="100" step="0.01" required></label>
+        <label for="invoice-date">开票日期<span class="required-marker" aria-hidden="true">*</span><input id="invoice-date" name="date" type="date" required></label>
+        <label class="invoice-note" for="invoice-note">备注<textarea id="invoice-note" name="note" rows="3" maxlength="240" placeholder="选填"></textarea></label>
+      </div>
+      <p id="invoice-form-error" class="invoice-form-error" role="alert" aria-live="assertive" hidden></p>
+      <footer class="invoice-dialog-actions">
+        <button class="ui-button" type="button" data-close-invoice>取消</button>
+        <button class="ui-button primary" type="submit">保存开票</button>
+      </footer>
+    </form>
+  </dialog>
+</body>
+</html>

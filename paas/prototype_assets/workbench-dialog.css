@@ -1,0 +1,16 @@
+.invoice-dialog {
+  width: min(730px, calc(100vw - 22px));
+}
+
+.invoice-dialog .grid-table :is(input:not([type=checkbox]), select, textarea) {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.invoice-dialog .grid-table .reference input {
+  background: var(--background);
+}
+
+.invoice-dialog .grid-table .btn {
+  white-space: nowrap;
+}

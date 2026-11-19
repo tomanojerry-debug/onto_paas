@@ -1,0 +1,423 @@
+/* The viewer stylesheet is applied after a versioned prototype is validated. */
+[data-ui-preview] {
+  --primary: var(--ui-accent);
+  --primary-hover: var(--ui-accent-hover);
+  --focus: var(--ui-accent);
+  --ink: var(--ui-ink);
+  --muted: var(--ui-muted);
+  --surface: var(--ui-surface);
+  --background: var(--ui-bg);
+  --divider: var(--ui-border);
+  --border: var(--ui-border);
+  --console-ink: var(--ui-ink);
+  --console-muted: var(--ui-muted);
+  --console-line: var(--ui-border);
+  --console-surface: var(--ui-surface);
+  --console-canvas: var(--ui-bg);
+  --console-blue: var(--ui-accent);
+  --console-blue-light: var(--ui-accent-soft);
+  --polish-control: var(--ui-border-strong);
+  --polish-control-muted: var(--ui-subtle);
+  --polish-control-hover: var(--ui-subtle);
+  --polish-copy-muted: var(--ui-muted);
+  --polish-control-height: var(--ui-control-height);
+  --app-bar-height: var(--ui-topbar-height);
+  color: var(--ui-ink);
+  background: var(--ui-bg);
+  font: 14px/1.5 var(--ui-font);
+}
+
+[data-ui-preview] .app-bar,
+[data-ui-preview="legacy"] > header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: var(--app-bar-height);
+  padding: 6px var(--ui-gutter);
+  border-bottom: 1px solid var(--ui-nav-border);
+  background: var(--ui-nav);
+  color: var(--ui-nav-ink);
+}
+
+[data-ui-preview] .app-bar .app-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+[data-ui-preview] .app-bar strong,
+[data-ui-preview="legacy"] > header h1 {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+[data-ui-preview] .app-bar :is(.preview-label, small) {
+  color: var(--ui-nav-muted);
+  font-size: 12px;
+}
+
+[data-ui-preview] .app-bar .mark,
+[data-ui-preview="v9"] .sidebar .brand,
+[data-ui-preview="legacy"] > header .badge,
+[data-ui-preview] :is(.workspace-bar, .preview-summary, .assistant-foot),
+[data-ui-preview="legacy"] :is(main .intro, main .summary) {
+  display: none;
+}
+
+[data-ui-preview] .app-bar [data-toggle-panel] {
+  min-height: var(--ui-control-height);
+  padding: 5px 11px;
+  border: 1px solid var(--ui-nav-border);
+  border-radius: var(--ui-control-radius);
+  color: var(--ui-nav-ink);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+[data-ui-preview] .app-bar [data-toggle-panel]:is(:hover, [aria-expanded="false"]) {
+  border-color: var(--ui-nav-muted);
+  background: var(--ui-nav-hover);
+}
+
+[data-ui-preview] .shell {
+  min-height: calc(100dvh - var(--app-bar-height));
+  background: var(--ui-bg);
+}
+
+[data-ui-preview] .shell > .sidebar,
+[data-ui-preview="legacy"] .shell > nav {
+  top: var(--app-bar-height);
+  height: calc(100dvh - var(--app-bar-height));
+  padding: 12px 10px;
+  border-inline-end: 1px solid var(--ui-nav-border);
+  color: var(--ui-nav-ink);
+  background: var(--ui-nav);
+}
+
+[data-ui-preview="legacy"] .shell > nav {
+  position: sticky;
+  align-self: start;
+  overflow: auto;
+}
+
+[data-ui-preview] .sidebar-heading {
+  margin-bottom: 8px;
+  padding: 0 8px 10px;
+  border-color: var(--ui-nav-border);
+  color: var(--ui-nav-muted);
+  font-size: 12px;
+}
+
+[data-ui-preview] .sidebar .navigation {
+  padding: 0;
+  border: 0;
+}
+
+[data-ui-preview] .sidebar .nav-group summary,
+[data-ui-preview] .sidebar .nav-group summary::marker {
+  color: var(--ui-nav-muted);
+}
+
+[data-ui-preview] .sidebar .nav-group summary,
+[data-ui-preview] .sidebar .nav-link,
+[data-ui-preview="legacy"] nav button {
+  min-height: var(--ui-control-height);
+  font-size: 13px;
+}
+
+[data-ui-preview] .sidebar .nav-link,
+[data-ui-preview="legacy"] nav button {
+  color: var(--ui-nav-ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--ui-control-radius);
+}
+
+[data-ui-preview] .sidebar .nav-link:hover,
+[data-ui-preview="legacy"] nav button:hover {
+  color: var(--ui-nav-ink);
+  background: var(--ui-nav-hover);
+}
+
+[data-ui-preview] .sidebar .nav-link[aria-current="page"],
+[data-ui-preview="legacy"] nav button.active {
+  border-color: transparent;
+  color: var(--ui-nav-active-ink);
+  background: var(--ui-nav-active);
+}
+
+[data-ui-preview] :is(.sidebar, .app-bar) :focus-visible,
+[data-ui-preview="legacy"] nav button:focus-visible {
+  outline: 2px solid var(--ui-nav-focus);
+  outline-offset: 2px;
+}
+
+[data-ui-preview] .workspace .tabs {
+  padding-inline: 20px;
+  border-bottom-color: var(--ui-border);
+  background: var(--ui-surface);
+  min-height: 42px;
+  gap: 4px;
+  padding-top: 0;
+}
+
+[data-ui-preview] .workspace .tabs .tab {
+  align-self: stretch;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+}
+
+[data-ui-preview] .workspace .tabs .tab.active {
+  border-bottom-color: var(--ui-accent);
+  background: transparent;
+}
+
+[data-ui-preview] .workspace .tabs .close-tab:hover {
+  background: var(--ui-subtle);
+}
+
+[data-ui-preview] .page,
+[data-ui-preview="legacy"] main {
+  padding: 20px;
+}
+
+[data-ui-preview] .page-heading {
+  margin-bottom: 16px;
+}
+
+[data-ui-preview] .page-heading h1,
+[data-ui-preview="legacy"] .toolbar h2 {
+  color: var(--ui-ink);
+  font-size: var(--ui-title-size);
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+[data-ui-preview] .page-heading p,
+[data-ui-preview="legacy"] .toolbar p {
+  color: var(--ui-muted);
+  font-size: 13px;
+}
+
+[data-ui-preview] :is(.card, dialog:not(.drawer), .metric),
+[data-ui-preview="legacy"] .panel {
+  border-color: var(--ui-border);
+  border-radius: var(--ui-panel-radius);
+  background: var(--ui-surface);
+}
+
+[data-ui-preview] .card {
+  margin-bottom: 16px;
+}
+
+[data-ui-preview] .card-bar {
+  min-height: 46px;
+  padding: 8px 14px;
+}
+
+[data-ui-preview] :is(.card-bar h2, .assistant-head h2, .dialog-title h2) {
+  color: var(--ui-ink);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+[data-ui-preview] :is(.card-body, .dialog-body) {
+  padding: 14px;
+}
+
+[data-ui-preview] .field-label {
+  color: var(--ui-muted);
+  font-size: 13px;
+}
+
+[data-ui-preview] :is(.workspace, dialog) :is(input:not([type="checkbox"]), select, textarea),
+[data-ui-preview="legacy"] .fields :is(input:not([type="checkbox"]), select, textarea) {
+  min-height: var(--ui-control-height);
+  border-color: var(--ui-border-strong);
+  border-radius: var(--ui-control-radius);
+  font-size: 13px;
+}
+
+[data-ui-preview] :is(.workspace, dialog) :is(input, select, textarea):focus {
+  border-color: var(--ui-accent);
+  box-shadow: 0 0 0 2px var(--ui-accent-soft);
+}
+
+[data-ui-preview] :is(input[readonly], input:disabled, select:disabled, textarea:disabled) {
+  background: var(--ui-subtle);
+}
+
+[data-ui-preview] :is(.btn, .assistant-head [data-toggle-panel]),
+[data-ui-preview="legacy"] .actions button,
+[data-ui-preview] :is(.workspace, .invoice-dialog) .reference button[data-event="choose-reference"] {
+  min-height: var(--ui-control-height);
+  padding: 5px 11px;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: var(--ui-control-radius);
+  color: var(--ui-ink);
+  background: var(--ui-surface);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+
+[data-ui-preview] :is(.workspace, .invoice-dialog) :is(.card-toolbar, .page-heading, .card-bar, .dialog-footer) .btn {
+  font-size: 13px;
+  border-radius: var(--ui-control-radius);
+}
+
+[data-ui-preview] :is(.btn, .assistant-head [data-toggle-panel]):hover:not(:disabled),
+[data-ui-preview="legacy"] .actions button:hover:not(:disabled) {
+  background: var(--ui-subtle);
+}
+
+[data-ui-preview] .btn.mini,
+[data-ui-preview] .assistant-head [data-toggle-panel] {
+  min-height: 30px;
+  padding: 4px 9px;
+  font-size: 12px;
+}
+
+[data-ui-preview] .btn.primary,
+[data-ui-preview="legacy"] .actions .primary {
+  border-color: var(--ui-accent);
+  color: #fff;
+  background: var(--ui-accent);
+}
+
+[data-ui-preview] .btn.primary:hover:not(:disabled),
+[data-ui-preview="legacy"] .actions .primary:hover:not(:disabled),
+[data-ui-preview] :is(.workspace, .assistant-compose) .btn.primary:hover:not(:disabled) {
+  border-color: var(--ui-accent-hover);
+  background: var(--ui-accent-hover);
+}
+
+[data-ui-preview] .btn.danger {
+  border-color: var(--ui-danger);
+  color: var(--ui-danger);
+}
+
+[data-ui-preview] :is(.page-status, .notice):empty {
+  min-height: 0;
+  margin: 0;
+}
+
+[data-ui-preview] :is(.page-status.error, .required) {
+  color: var(--ui-danger);
+}
+
+[data-ui-preview] :is(.workspace, dialog) thead th,
+[data-ui-preview="legacy"] th {
+  color: var(--ui-muted);
+  background: var(--ui-subtle);
+}
+
+[data-ui-preview] :is(.workspace, dialog) tbody tr:hover {
+  background: var(--ui-subtle);
+}
+
+[data-ui-preview] dialog::backdrop {
+  background: #18191d70;
+}
+
+[data-ui-preview] dialog :is(.dialog-title, .dialog-footer) {
+  border-color: var(--ui-border);
+  background: var(--ui-surface);
+}
+
+[data-ui-preview] .shell > .assistant {
+  padding: 12px;
+  border-color: var(--ui-border);
+  color: var(--ui-ink);
+  background: var(--ui-surface);
+}
+
+[data-ui-preview] .assistant-context {
+  color: var(--ui-muted);
+}
+
+[data-ui-preview] .assistant-questions {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+[data-ui-preview] .assistant-scope,
+[data-ui-preview] .assistant-message-source,
+[data-ui-preview] .assistant-message-bubble {
+  color: var(--ui-ink);
+  background: var(--ui-subtle);
+}
+
+[data-ui-preview] .assistant-message:is(.user, [data-role="user"]) .assistant-message-bubble {
+  color: var(--ui-ink);
+  background: var(--ui-accent-soft);
+}
+
+[data-ui-preview] .assistant-compose {
+  border-radius: var(--ui-panel-radius);
+}
+
+[data-ui-preview] .assistant-compose elastic-textarea {
+  display: block;
+  min-width: 0;
+}
+
+[data-ui-preview] .assistant-compose textarea {
+  resize: none;
+}
+
+[data-ui-preview] .assistant-compose:focus-within {
+  border-color: var(--ui-accent);
+  box-shadow: 0 0 0 2px var(--ui-accent-soft);
+}
+
+@media (max-width: 1000px) {
+  [data-ui-preview] .shell > .assistant {
+    border-radius: var(--ui-panel-radius);
+  }
+}
+
+@media (max-width: 680px) {
+  [data-ui-preview] .app-bar,
+  [data-ui-preview="legacy"] > header {
+    gap: 8px;
+    padding-inline: 10px;
+  }
+
+  [data-ui-preview] .page,
+  [data-ui-preview="legacy"] main {
+    padding: 14px;
+  }
+
+  [data-ui-preview] .workspace .tabs {
+    padding-inline: 14px;
+  }
+
+  [data-ui-preview="legacy"] .shell > nav {
+    position: static;
+    height: auto;
+    border-inline-end: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  [data-ui-preview] .app-bar [data-toggle-panel] {
+    min-height: 32px;
+    padding-inline: 8px;
+    font-size: 12px;
+  }
+
+  [data-ui-preview] .shell > .sidebar {
+    height: auto;
+    padding: 6px 8px;
+    border-inline-end: 0;
+  }
+}

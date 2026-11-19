@@ -1,0 +1,359 @@
+:root {
+  --polish-control: #cfd7e2;
+  --polish-control-muted: #f2f5f8;
+  --polish-control-hover: #f5f8fc;
+  --polish-copy-muted: #586981;
+  --polish-control-height: 32px;
+}
+
+.sidebar .nav-group summary,
+.sidebar .nav-link {
+  min-height: 30px;
+  padding-block: 6px;
+}
+
+.sidebar .nav-link[aria-current="page"] {
+  border-block-color: transparent;
+  border-inline-end-color: transparent;
+}
+
+.workspace [data-filter] .fields {
+  column-gap: 14px;
+  row-gap: 8px;
+}
+
+.workspace [data-filter] .field {
+  grid-template-columns: minmax(0, 72px) minmax(0, 1fr);
+  align-items: start;
+  column-gap: 8px;
+}
+
+.workspace [data-filter] .field-label {
+  padding-block: 7px;
+  line-height: 1.35;
+}
+
+.workspace :is([data-filter], [data-main]) .field-label,
+.invoice-dialog .field-label {
+  color: #47586e;
+  font-size: 12px;
+}
+
+:is(.workspace, .invoice-dialog) :is(input:not([type="checkbox"]), select, textarea) {
+  min-height: var(--polish-control-height);
+  padding: 6px 8px;
+  border-color: var(--polish-control);
+  border-radius: 4px;
+  color: var(--console-ink);
+  background: #fff;
+  font-size: 12px;
+}
+
+:is(.workspace, .invoice-dialog) :is(input[readonly], input:disabled, select:disabled, textarea:disabled) {
+  color: #4e6077;
+  background: var(--polish-control-muted);
+}
+
+:is(.workspace, .invoice-dialog) :is(input:disabled, select:disabled, textarea:disabled) {
+  cursor: not-allowed;
+}
+
+:is(.workspace, .invoice-dialog) :is(input, textarea)::placeholder {
+  color: #6b7a8e;
+}
+
+:is(.workspace, .invoice-dialog) :is(input, select, textarea):focus {
+  border-color: var(--console-blue);
+  box-shadow: 0 0 0 2px #305f961f;
+}
+
+:is(.workspace, .invoice-dialog) .reference {
+  align-items: stretch;
+  gap: 5px;
+}
+
+:is(.workspace, .invoice-dialog) .reference input[readonly]:not(:disabled) {
+  color: #455873;
+  background: #fff;
+  cursor: pointer;
+}
+
+:is(.workspace, .invoice-dialog) .reference input[readonly]:hover:not(:disabled) {
+  border-color: #aebed2;
+}
+
+:is(.workspace, .invoice-dialog) :is(.card-toolbar, .page-heading, .card-bar, .dialog-footer) .btn,
+:is(.workspace, .invoice-dialog) .reference button[data-event="choose-reference"] {
+  min-height: var(--polish-control-height);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+:is(.workspace, .invoice-dialog) :is(.card-toolbar, .page-heading, .card-bar, .dialog-footer) .btn:not(.primary, .danger),
+:is(.workspace, .invoice-dialog) .reference button[data-event="choose-reference"] {
+  border-color: var(--polish-control);
+  color: #455873;
+  background: #fff;
+}
+
+:is(.workspace, .invoice-dialog) :is(.card-toolbar, .page-heading, .card-bar, .dialog-footer) .btn:not(.primary, .danger):hover:not(:disabled),
+:is(.workspace, .invoice-dialog) .reference button[data-event="choose-reference"]:hover:not(:disabled) {
+  border-color: #aebed2;
+  background: var(--polish-control-hover);
+}
+
+:is(.workspace, .invoice-dialog) .btn:disabled {
+  opacity: .59;
+}
+
+[data-reference-dialog] {
+  border-color: var(--polish-control);
+  border-radius: 6px;
+  background: #fff;
+}
+
+[data-reference-dialog] .dialog-title {
+  border-bottom-color: #e6ebf2;
+  background: #f7f9fc;
+}
+
+[data-reference-dialog] .options button {
+  min-height: var(--polish-control-height);
+  border: 1px solid var(--polish-control);
+  border-radius: 4px;
+  background: #fff;
+}
+
+[data-reference-dialog] .options button:hover {
+  border-color: #aebed2;
+  background: var(--polish-control-hover);
+}
+
+[data-reference-dialog] .options button[data-current] {
+  border-color: #8aa7c8;
+  background: #eef4fa;
+}
+
+.shell > .assistant {
+  padding: 10px 12px;
+  background: #fff;
+}
+
+.assistant-head {
+  min-height: 34px;
+  gap: 5px;
+  padding-bottom: 5px;
+}
+
+.assistant-head h2 {
+  font-size: 13px;
+}
+
+.assistant-head [data-toggle-panel] {
+  min-height: 24px;
+  padding: 2px 5px;
+  border-color: transparent;
+  border-radius: 4px;
+}
+
+.assistant-head [data-toggle-panel]:hover {
+  border-color: var(--polish-control);
+  background: var(--polish-control-hover);
+}
+
+.assistant-context {
+  justify-content: flex-start;
+  gap: 7px;
+  margin-top: 0;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 1px solid #e7ebf1;
+  border-radius: 0;
+  background: transparent;
+}
+
+.assistant [data-assistant-status]:not(:empty) {
+  padding: 3px 0;
+  color: var(--polish-copy-muted);
+  font-size: 11px;
+}
+
+.assistant-scope {
+  padding: 1px 5px;
+  border: 1px solid #e1e7ef;
+  color: #4f627b;
+  background: #f8fafc;
+}
+
+.assistant-metrics > :is(section, div, article) {
+  border-color: #e4e9f0;
+  border-radius: 4px;
+  background: #fafbfd;
+}
+
+.assistant-log {
+  padding: 7px 1px 8px;
+  border: 0;
+  line-height: 1.55;
+}
+
+.assistant-log > p {
+  margin: 3px 0 8px;
+  color: var(--polish-copy-muted);
+}
+
+.assistant-log .assistant-message,
+.assistant-log .assistant-message:is(.user, [data-role="user"]) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 3px;
+  padding: 0;
+  margin: 6px 0 9px;
+  border: 0;
+  border-radius: 0;
+  color: var(--console-ink);
+  background: transparent;
+}
+
+.assistant-log .assistant-message:is(.user, [data-role="user"]) {
+  justify-items: end;
+}
+
+.assistant-message-bubble {
+  min-width: 0;
+  max-width: 100%;
+  padding: 7px 9px;
+  border-radius: 6px;
+  background: #f3f6f9;
+  overflow-wrap: anywhere;
+}
+
+.assistant-message:is(.user, [data-role="user"]) .assistant-message-bubble {
+  max-width: 86%;
+  color: #223d60;
+  background: #e8eff8;
+}
+
+.assistant-message-bubble:has(.assistant-result) {
+  padding: 0;
+  background: transparent;
+}
+
+.assistant-message-bubble :is(p, h3) + :is(p, h3) {
+  margin-top: 5px;
+}
+
+.assistant-message-bubble > h3 {
+  margin-bottom: 4px;
+  color: #344d6c;
+  font-size: 12px;
+}
+
+.assistant-message-source {
+  padding: 0 4px;
+  border-radius: 3px;
+  color: var(--polish-copy-muted);
+  background: #f2f5f9;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.assistant-result {
+  min-width: 0;
+  width: 100%;
+  margin: 3px 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.assistant-result :is(caption, figcaption, .assistant-result-caption, h3) {
+  padding: 4px 0;
+  border: 0;
+  font-size: 11px;
+}
+
+.assistant-table-wrap {
+  border: 1px solid #e0e7ef;
+  border-radius: 4px;
+}
+
+.assistant-table-wrap thead th {
+  background: #f4f7fb;
+}
+
+.assistant-table-wrap tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.assistant-questions {
+  margin-top: 3px;
+  padding: 2px 0 4px;
+}
+
+.assistant-questions button {
+  min-height: 24px;
+  padding: 3px 7px;
+  border-color: #d8e0ea;
+  border-radius: 4px;
+  color: #485d78;
+  background: #fff;
+}
+
+.assistant-questions button:hover:not(:disabled) {
+  background: var(--polish-control-hover);
+}
+
+.assistant-compose {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+  padding: 6px;
+  margin-top: 3px;
+  border: 1px solid var(--polish-control);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.assistant-compose:focus-within {
+  border-color: #7e9bbd;
+  box-shadow: 0 0 0 2px #315f9617;
+}
+
+.assistant-compose textarea,
+.assistant-compose textarea:focus {
+  min-height: 43px;
+  padding: 3px 4px;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  color: var(--console-ink);
+  background: transparent;
+  font-size: 12px;
+  resize: vertical;
+}
+
+.assistant-compose textarea::placeholder {
+  color: #6a788d;
+}
+
+.assistant-compose .actions {
+  justify-content: flex-end;
+}
+
+.assistant-compose .btn {
+  min-height: 26px;
+  padding: 3px 9px;
+}
+
+@media (max-width: 530px) {
+  .workspace [data-filter] .field {
+    grid-template-columns: minmax(0, 64px) minmax(0, 1fr);
+  }
+
+  .shell > .assistant {
+    padding: 8px 9px;
+  }
+}
